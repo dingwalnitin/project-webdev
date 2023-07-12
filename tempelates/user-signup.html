@@ -1,87 +1,84 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Sign Up</title>
+  <title>User Signup - Car Company</title>
   <style>
     body {
-      background-color: #f2f2f2;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    h1 {
+      background-color: #5a2876;
+      color: #f5f5f5;
+      font-family: 'Arial', sans-serif;
       text-align: center;
-    }
-
-    form {
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
     }
-
-    .form-group {
+    
+    .container {
+      background-color: #553e6c;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      animation: fadeScaleIn 1s ease;
+    }
+    
+    h1 {
+      font-size: 24px;
       margin-bottom: 20px;
+      color: #f5f5f5;
     }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .form-group input {
+    
+    input[type="text"], input[type="password"] {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      border: 1px solid #9c6bbe;
       border-radius: 4px;
+      font-family: 'Arial', sans-serif;
+      background-color: #7b4aa0;
+      color: #f5f5f5;
     }
-
-    .form-group button {
-      padding: 10px 20px;
-      background-color: #004080;
-      color: #fff;
+    
+    button {
+      background-color: #9c6bbe;
+      color: #f5f5f5;
       border: none;
+      padding: 10px 20px;
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
-
-    .form-group button:hover {
-      background-color: #80b3ff;
-    }
-
-    .error-message {
-      color: red;
-      margin-bottom: 10px;
+    
+    /* Animation */
+    @keyframes fadeScaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>User Sign Up</h1>
+    <h1>Signup for Car Enthusiasts</h1>
     <form id="signup-form">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <div class="form-group">
-        <button type="submit">Sign Up</button>
-      </div>
-      <p id="error-message" class="error-message"></p>
+      <input type="text" id="name" placeholder="Enter your name" required>
+      <br>
+      <input type="password" id="password" placeholder="Enter your password" required>
+      <br>
+      <input type="text" id="location" placeholder="Enter your location" required>
+      <br>
+      <input type="text" id="userinfo" placeholder="Enter additional user info" required>
+      <br>
+      <button type="submit">Sign Up</button>
     </form>
+    <p id="error-message"></p>
   </div>
 
   <script>
@@ -90,24 +87,37 @@
 
       const name = document.getElementById('name').value;
       const password = document.getElementById('password').value;
+      const location = document.getElementById('location').value;
+      const userinfo = document.getElementById('userinfo').value;
 
-      const response = await fetch('/user-signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, password })
-      });
+      const data = {
+        name,
+        password,
+        location,
+        userinfo
+      };
 
-      const data = await response.json();
+      try {
+        const response = await fetch('/user-signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
 
-      if (response.ok) {
-        console.log('Sign up successful!', data.message);
-        window.location.href = '/user-profile'; // Redirect to the user-profile page
-      } else {
-        const errorMessage = document.getElementById('error-message');
-        errorMessage.textContent = data.error;
-        console.log('Sign up failed:', data.error);
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log('Sign up successful!', responseData.message);
+          window.location.href = '/user-profile'; // Redirect to the user-profile page
+        } else {
+          const errorMessage = document.getElementById('error-message');
+          errorMessage.textContent = responseData.error;
+          console.log('Sign up failed:', responseData.error);
+        }
+      } catch (error) {
+        console.log('An error occurred:', error);
       }
     });
   </script>

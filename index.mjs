@@ -33,7 +33,7 @@ app.get('/user-signin', (req, res) => {
 });
 
 app.get('/user-profile', (req, res) => {
-  res.sendFile(path.resolve(tempelatePath, 'success.html'));
+  res.sendFile(path.resolve(tempelatePath, 'user-profile.html'));
 });
 
 app.post('/user-signup', async (req, res) => {
@@ -49,6 +49,8 @@ app.post('/user-signup', async (req, res) => {
         name: req.body.name,
         password: hashedPassword,
         salt: salt,
+        userlocation: req.body.location ,
+        userinfo : req.body.userinfo
       };
 
       await LogInCollection.insertMany([data]);
