@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jellyfish Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-button {
+      padding: 10px 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      background-color: #8b61cc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-button:hover {
+      background-color: #6a3fbf;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="login-buttons">
+      <button class="login-button" onclick="window.location.href='deal-signin.html'">Dealership Login</button>
+      <button class="login-button" onclick="window.location.href='user-signin.html'">User Login</button>
+      <button class="login-button" onclick="window.location.href='admin-signin.html'">Admin Login</button>
+    </div>
+  </div>
+</body>
+</html>
