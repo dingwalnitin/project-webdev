@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vehicles Sold by Dealership</title>
+  </head>
+  <body>
+    <h1>Vehicles Sold by Dealership</h1>
+    <% if (vehicles.length > 0) { %>
+      <ul>
+        <% vehicles.forEach((vehicle) => { %>
+          <li><%= vehicle.vehInfo %></li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p>No vehicles sold by this dealership.</p>
+    <% } %>
+  </body>
+</html>

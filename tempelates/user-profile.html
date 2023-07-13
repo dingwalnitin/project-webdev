@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+  <style>
+    /* CSS Styles */
+    body {
+      background-color: #2d2d2d;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #383838;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .user-details {
+      margin-bottom: 20px;
+    }
+
+    h4 {
+      margin: 0;
+    }
+
+    #username-placeholder,
+    #userlocation-placeholder,
+    #userinfo-placeholder {
+      font-style: italic;
+    }
+
+    #username,
+    #userlocation,
+    #userinfo {
+      font-weight: bold;
+    }
+
+    /* Button Styles */
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: #8e44ad;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #663399;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>User Profile</h1>
+    <div class="user-details">
+      <h4>User Name:</h4>
+      <p id="username-placeholder"></p>
+      <p id="username"></p>
+    </div>
+    <div class="user-details">
+      <h4>User Location:</h4>
+      <p id="userlocation-placeholder"></p>
+      <p id="userlocation"></p>
+    </div>
+    <div class="user-details">
+      <h4>User Info:</h4>
+      <p id="userinfo-placeholder"></p>
+      <p id="userinfo"></p>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <a href="/allcars" class="button">All Cars</a>
+    <a href="/seldeal" class="button">Dealership Cars</a>
+    <a href="/selcardeal" class="button">Car's Dealership</a>
+    <a href="/usercar" class="button">User's Cars</a>
+    <a href="/nearby" class="button">Nearby Dealership</a>
+    <a href="/dealcar" class="button">Car deals</a>
+    <a href="/dealershipdeal" class="button">Dealership's Deals</a>
+    <a href="/buy" class="button">Buy Car</a>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Function to retrieve user data from the server
+      function getUserData() {
+        // Make an AJAX request to the server to fetch user data
+        $.ajax({
+          url: '/user-profile',
+          method: 'POST',
+          headers: {
+            'X-Magic': magic
+            },
+          success: function(response) {
+            // Populate the user profile page with the received data
+            $('#username').text(response.username);
+            $('#userlocation').text(response.location);
+            $('#userinfo').text(response.info);
+          },
+          error: function(xhr, status, error) {
+            console.error('Error fetching user data:', error);
+          }
+        });
+      }
+      function readTokenFromCookie() {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+         const cookie = cookies[i].trim();
+         if (cookie.startsWith('token=')) {
+              const token = cookie.substring('token='.length);
+              return token;
+            }
+         }
+          return null;
+        }
+
+      const magic= readTokenFromCookie()
+
+      // Call the function to fetch user data on page load
+      getUserData();
+    });
+  </script>
+</body>
+</html>

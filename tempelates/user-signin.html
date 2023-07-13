@@ -116,7 +116,7 @@
       if (response.ok) {
         const data = await response.json();
         console.log('Sign up successful!', data.message);
-        localStorage.setItem('token', response.token)
+        
         window.location.href = '/user-profile'; 
         console.log('Login successful!', data);
       } else {

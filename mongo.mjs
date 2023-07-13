@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
   vehInfo: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SoldVeh',
-    required: true
+    required: false
   },
   useremail: {
     type: String,

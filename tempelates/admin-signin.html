@@ -1,41 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Success</title>
+  <title>Admin Login - Car Company</title>
   <style>
     body {
-      background-color: #f2f2f2;
-      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
     }
-
+    
     .container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: slideInFromTop 1s ease;
     }
-
+    
     h1 {
-      text-align: center;
+      font-size: 40px;
     }
-
-    p {
-      text-align: center;
-      margin-bottom: 20px;
+    
+    input[type="text"], input[type="password"] {
+      background-color: #000;
+      color: #0f0;
+      border: 2px solid #0f0;
+      padding: 10px;
+      font-family: 'Courier New', monospace;
+      margin-top: 10px;
     }
-
-    .success-message {
-      color: #008000;
-      font-weight: bold;
+    
+    button {
+      background-color: #0f0;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+      animation: glitch 0.5s infinite;
+    }
+    
+    /* Animation */
+    @keyframes slideInFromTop {
+      0% {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes glitch {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(1.1) rotate(2deg);
+        opacity: 0.8;
+      }
+      40% {
+        transform: scale(0.9) rotate(-2deg);
+        opacity: 1;
+      }
+      60% {
+        transform: scale(1.05) rotate(1deg);
+        opacity: 0.9;
+      }
+      80% {
+        transform: scale(0.95) rotate(-1deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Success</h1>
-    <p class="success-message">Operation admin completed successfully!</p>
+    <h1>Login to Car Company Admin Panel</h1>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Username">
+      <br>
+      <input type="password" id="password" placeholder="Password">
+      <br>
+      <button type="submit">Login</button>
+    </form>
   </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData();
+      formData.append('email', document.getElementById('username').value);
+      formData.append('password', document.getElementById('password').value);
+
+      const response = await fetch('/admin-signin', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Login successful!', data);
+        window.location.href = '/user-profile';
+      } else {
+        console.log('Invalid credentials. Please try again.');
+      }
+    });
+  </script>
 </body>
 </html>

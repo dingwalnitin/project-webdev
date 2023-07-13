@@ -22,6 +22,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      opacity: 0;
+      animation: fadeSlideIn 1s forwards;
     }
 
     .login-button {
@@ -39,14 +41,25 @@
     .login-button:hover {
       background-color: #6a3fbf;
     }
+
+    @keyframes fadeSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="login-buttons">
-      <button class="login-button" onclick="window.location.href='deal-signin.html'">Dealership Login</button>
-      <button class="login-button" onclick="window.location.href='user-signin.html'">User Login</button>
-      <button class="login-button" onclick="window.location.href='admin-signin.html'">Admin Login</button>
+      <button class="login-button" onclick="window.location.href='deal-signin'">Dealership Login</button>
+      <button class="login-button" onclick="window.location.href='user-signin'">User Login</button>
+      <button class="login-button" onclick="window.location.href='admin-signin'">Admin Login</button>
     </div>
   </div>
 </body>

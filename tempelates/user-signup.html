@@ -67,14 +67,15 @@
 <body>
   <div class="container">
     <h1>Signup for Car Enthusiasts</h1>
-    <form id="signup-form">
-      <input type="text" id="name" placeholder="Enter your name" required>
+    <form id="signup-form" enctype="multipart/form-data">
+      <input type="text" id="email" name="email" placeholder="Enter your email" required>
+      
       <br>
-      <input type="password" id="password" placeholder="Enter your password" required>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
       <br>
-      <input type="text" id="location" placeholder="Enter your location" required>
+      <input type="text" id="location" name="location" placeholder="Enter your location" required>
       <br>
-      <input type="text" id="userinfo" placeholder="Enter additional user info" required>
+      <input type="text" id="userinfo" name="userinfo" placeholder="Enter additional user info" required>
       <br>
       <button type="submit">Sign Up</button>
     </form>
@@ -85,25 +86,12 @@
     document.getElementById('signup-form').addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const name = document.getElementById('name').value;
-      const password = document.getElementById('password').value;
-      const location = document.getElementById('location').value;
-      const userinfo = document.getElementById('userinfo').value;
-
-      const data = {
-        name,
-        password,
-        location,
-        userinfo
-      };
+      const formData = new FormData(document.getElementById('signup-form'));
 
       try {
         const response = await fetch('/user-signup', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
+          body: formData
         });
 
         const responseData = await response.json();

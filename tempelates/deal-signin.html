@@ -1,41 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Success</title>
+  <title>Login</title>
   <style>
     body {
-      background-color: #f2f2f2;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     .container {
-      max-width: 400px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #8b61cc;
+    }
+
+    .login-form {
+      background-color: #ffffff;
       padding: 20px;
-      background-color: #fff;
       border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      animation: slide-in 0.5s ease-in-out;
     }
 
-    h1 {
-      text-align: center;
-    }
-
-    p {
+    .login-form h2 {
       text-align: center;
       margin-bottom: 20px;
+      color: #6a3fbf;
     }
 
-    .success-message {
-      color: #008000;
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
       font-weight: bold;
+      margin-bottom: 5px;
+      color: #6a3fbf;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #6a3fbf;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-group button:hover {
+      background-color: #8b61cc;
+    }
+
+    @keyframes slide-in {
+      0% {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Success</h1>
-    <p class="success-message">Operation deal  completed successfully!</p>
+    <div class="login-form">
+      <h2>Login</h2>
+      <form id="login-form" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData();
+      formData.append('email', document.getElementById('email').value);
+      formData.append('password', document.getElementById('password').value);
+
+      const response = await fetch('/deal-signin', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Sign in successful!', data.message);
+        
+        window.location.href = '/deal-profile'; 
+        console.log('Login successful!', data);
+      } else {
+        console.log('Invalid credentials. Please try again.');
+      }
+    });
+  </script>
 </body>
+
 </html>
+
